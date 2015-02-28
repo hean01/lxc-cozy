@@ -1,0 +1,32 @@
+diff -up apache-couchdb-1.5.0.orig/configure.ac apache-couchdb-1.5.0/configure.ac
+--- apache-couchdb-1.5.0.orig/configure.ac	2013-03-11 09:49:50.975637942 -0700
++++ apache-couchdb-1.5.0/configure.ac	2013-03-11 10:03:52.363706024 -0700
+@@ -524,17 +524,23 @@ launchd_enabled=false
+ 
+ if test "$use_init" = "yes"; then
+    AC_MSG_CHECKING(location of init directory)
+-   if test -d /etc/rc.d; then
++   if test -d /etc/rc.d/init.d; then
+        init_enabled=true
+-       AC_SUBST([initdir], ['${sysconfdir}/rc.d'])
++       AC_SUBST([initdir], ['${sysconfdir}/rc.d/init.d'])
+        AC_MSG_RESULT(${initdir})
+    else
+-       if test -d /etc/init.d; then
++       if test -d /etc/rc.d; then
+            init_enabled=true
+-           AC_SUBST([initdir], ['${sysconfdir}/init.d'])
++           AC_SUBST([initdir], ['${sysconfdir}/rc.d'])
+            AC_MSG_RESULT(${initdir})
+        else
+-           AC_MSG_RESULT(not found)
++           if test -d /etc/init.d; then
++              init_enabled=true
++              AC_SUBST([initdir], ['${sysconfdir}/init.d'])
++              AC_MSG_RESULT(${initdir})
++           else
++              AC_MSG_RESULT(not found)
++           fi
+        fi
+     fi
+ fi

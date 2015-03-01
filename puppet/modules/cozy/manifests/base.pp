@@ -7,9 +7,18 @@ class cozy::base {
               ensure => latest,
   }
 
-#  include cozy::couchdb
-#  include cozy::monitor
-#  include cozy::controller
+
+  file {'/etc/cozy':
+    ensure => directory,
+  }
+
+  user {'cozy-data-system':
+    ensure => present,
+  }
+
+  include cozy::couchdb
+#  include cozy::cozy-monitor
+#  include cozy::cozy-controller
 #  include cozy::data-indexer
 #  include cozy::data-system
 #  include cozy::nginx

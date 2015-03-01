@@ -4,7 +4,7 @@ all: lxc-cozy
 
 LXC_RUN := sudo lxc-attach --name $(_LXC_NAME) --
 
-lxc-cozy: clean external
+lxc-cozy: clean
 	@echo Initialize CentOS 7 LXC container
 	sudo lxc-create --name $(_LXC_NAME) --config container.conf --template download -- \
 		--dist centos --release 7 --arch amd64
@@ -22,9 +22,6 @@ lxc-cozy: clean external
 	@echo Install puppet and apply cloud configuration
 	$(LXC_RUN) yum install puppet puppet-firewalld --assumeyes
 	$(LXC_RUN) puppet apply --modulepath=/opt/lxc-cozy/puppet/modules /opt/lxc-cozy/puppet/manifests/cloud.pp
-
-external:
-	$(MAKE) -C external
 
 clean:
 	-sudo lxc-stop --name $(_LXC_NAME) --nowait --kill

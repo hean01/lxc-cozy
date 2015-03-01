@@ -3,6 +3,7 @@ class cozy::cozy-controller {
   exec {'install-cozy-controller':
     command => 'npm install -g cozy-controller',
     path => ['/bin/', '/usr/bin/'],
+    require => Package['npm']
   }
 
   file {'/etc/monit.d/cozy-controller':

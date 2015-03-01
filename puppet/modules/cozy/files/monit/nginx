@@ -1,0 +1,3 @@
+check process nginx with pidfile /run/nginx.pid
+start program  "/usr/bin/systemctl start nginx.service"
+stop program  "/usr/bin/systemctl stop nginx.service"

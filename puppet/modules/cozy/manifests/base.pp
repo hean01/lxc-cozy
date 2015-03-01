@@ -15,6 +15,10 @@ class cozy::base {
     require => [ User['cozy'], Group['cozy'] ],
   }
 
+  file {'/var/run/cozy':
+    ensure => directory,
+  }
+
   user {'cozy':
     ensure => present,
   }
@@ -29,7 +33,7 @@ class cozy::base {
 
   include cozy::couchdb
   include cozy::cozy-monitor
-#  include cozy::cozy-controller
+  include cozy::cozy-controller
 #  include cozy::data-indexer
 #  include cozy::data-system
 #  include cozy::nginx

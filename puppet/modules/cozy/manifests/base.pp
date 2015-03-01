@@ -10,6 +10,17 @@ class cozy::base {
 
   file {'/etc/cozy':
     ensure => directory,
+    owner => 'cozy',
+    group => 'cozy',
+    require => [ User['cozy'], Group['cozy'] ],
+  }
+
+  user {'cozy':
+    ensure => present,
+  }
+
+  group {'cozy':
+    ensure => present,
   }
 
   user {'cozy-data-system':

@@ -8,7 +8,7 @@ class cozy::couchdb {
     source => 'puppet:///modules/cozy/couchdb.login',
     mode => 600,
     owner => 'cozy-data-system',
-    require => [ File['/etc/cozy'], User['cozy-data-system'] ],
+    require => [ User['cozy-data-system'] ],
   }
 
   file {'/etc/monit.d/couchdb':

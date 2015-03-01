@@ -17,7 +17,7 @@ class cozy::base {
   }
 
   include cozy::couchdb
-#  include cozy::cozy-monitor
+  include cozy::cozy-monitor
 #  include cozy::cozy-controller
 #  include cozy::data-indexer
 #  include cozy::data-system

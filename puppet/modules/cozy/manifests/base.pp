@@ -1,7 +1,5 @@
 class cozy::base {
 
-  require cloud::monit
-
   package {['nodejs',
             'npm']:
               ensure => latest,
@@ -36,6 +34,6 @@ class cozy::base {
   include cozy::cozy-controller
 #  include cozy::data-indexer
 #  include cozy::data-system
-#  include cozy::nginx
+  include cozy::nginx
 
 }

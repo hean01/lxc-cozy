@@ -1,0 +1,4 @@
+# Configuration
+
+# The lxc name, default value is cozy
+_LXC_NAME	:= cozy

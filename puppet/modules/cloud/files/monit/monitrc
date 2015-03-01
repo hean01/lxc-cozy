@@ -1,0 +1,8 @@
+set daemon  60
+set httpd port 2812 and
+    signature disable
+    ssl enable
+    pemfile /etc/certs/monit.pem
+    allow admin:monit
+
+include /etc/monit.d/*

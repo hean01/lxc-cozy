@@ -5,12 +5,8 @@ class cozy::base {
               ensure => latest,
   }
 
-
   file {'/etc/cozy':
     ensure => directory,
-    owner => 'cozy',
-    group => 'cozy',
-    require => [ User['cozy'], Group['cozy'] ],
   }
 
   file {'/var/run/cozy':
@@ -20,12 +16,21 @@ class cozy::base {
   user {'cozy':
     ensure => present,
   }
-
   group {'cozy':
     ensure => present,
   }
 
+  user {'cozy-home':
+    ensure => present,
+  }
+  group {'cozy-home':
+    ensure => present,
+  }
+
   user {'cozy-data-system':
+    ensure => present,
+  }
+  group {'cozy-data-system':
     ensure => present,
   }
 

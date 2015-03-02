@@ -1,9 +1,19 @@
 class cozy::cozy-controller {
 
+  package {['git', 'sudo']:
+    ensure => latest,
+  }
+
   exec {'install-cozy-controller':
     command => 'npm install -g cozy-controller',
     path => ['/bin/', '/usr/bin/'],
     require => Package['npm']
+  }
+
+  exec {'fix-sudoers':
+    command => 'sed -i \'s/Defaults    requiretty/#Defaults    rquiretty/g\' /etc/sudoers',
+    path => ['/bin/', '/usr/bin/'],
+    before => Service['cozy-controller.service'],
   }
 
   file {'/etc/monit.d/cozy-controller':

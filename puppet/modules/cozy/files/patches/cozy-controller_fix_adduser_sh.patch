@@ -1,0 +1,8 @@
+--- /usr/lib/node_modules/cozy-controller/build/server/lib/adduser.sh.orig	2015-03-02 12:23:20.653001887 +0000
++++ /usr/lib/node_modules/cozy-controller/build/server/lib/adduser.sh	2015-03-02 12:23:33.148848201 +0000
+@@ -1,4 +1,4 @@
+-#/bin/bash
++#!/bin/bash
+ 
+ #
+ # $USER

@@ -1,6 +1,6 @@
 class cozy::cozy-controller {
 
-  package {['git', 'sudo']:
+  package {['git', 'sudo', 'patch']:
     ensure => latest,
   }
 
@@ -14,6 +14,28 @@ class cozy::cozy-controller {
     command => 'sed -i \'s/Defaults    requiretty/#Defaults    rquiretty/g\' /etc/sudoers',
     path => ['/bin/', '/usr/bin/'],
     before => Service['cozy-controller.service'],
+  }
+
+  exec {'apply-patch0':
+    command => 'cd / && patch -p0 < /tmp/cozy-controller_fix_env.patch',
+    path => ['/bin/', '/usr/bin/'],
+    require => [ Package['patch'], File['/tmp/cozy-controller_fix_env.patch'] ],
+    before => Service['cozy-controller.service'],
+  }
+
+  exec {'apply-patch1':
+    command => 'cd / && patch -p0 < /tmp/cozy-controller_fix_adduser_sh.patch',
+    path => ['/bin/', '/usr/bin/'],
+    require => [ Package['patch'], File['/tmp/cozy-controller_fix_adduser_sh.patch'] ],
+    before => Service['cozy-controller.service'],
+  }
+
+  file {'/tmp/cozy-controller_fix_env.patch':
+    source => 'puppet:///modules/cozy/patches/cozy-controller_fix_env.patch',
+  }
+
+  file {'/tmp/cozy-controller_fix_adduser_sh.patch':
+    source => 'puppet:///modules/cozy/patches/cozy-controller_fix_adduser_sh.patch',
   }
 
   file {'/etc/monit.d/cozy-controller':

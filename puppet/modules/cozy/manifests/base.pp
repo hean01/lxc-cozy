@@ -27,6 +27,13 @@ class cozy::base {
     ensure => present,
   }
 
+  user {'cozy-proxy':
+    ensure => present,
+  }
+  group {'cozy-proxy':
+    ensure => present,
+  }
+
   user {'cozy-data-system':
     ensure => present,
   }
@@ -37,8 +44,7 @@ class cozy::base {
   include cozy::couchdb
   include cozy::cozy-monitor
   include cozy::cozy-controller
-#  include cozy::data-indexer
-#  include cozy::data-system
+  include cozy::cozy-stack
   include cozy::nginx
 
 }

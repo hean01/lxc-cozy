@@ -1,6 +1,6 @@
 class cozy::couchdb {
 
-  package {'couchdb':
+  package {['couchdb', 'curl']:
     ensure => latest,
   }
 
@@ -9,6 +9,12 @@ class cozy::couchdb {
     mode => 600,
     owner => 'cozy-data-system',
     require => [ User['cozy-data-system'] ],
+  }
+
+  exec {'init-db':,
+    command => 'curl -X PUT http://127.0.0.1:5984/_config/admins/cozy -d \'"password"\'',
+    path => '/usr/bin',
+    require => Package['curl'],
   }
 
   file {'/etc/monit.d/couchdb':
@@ -22,5 +28,6 @@ class cozy::couchdb {
     provider => systemd,
     ensure => running,
     enable => true,
+    before => Exec['init-db'],
   }
 }
